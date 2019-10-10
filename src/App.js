@@ -14,9 +14,16 @@ class App extends React.Component {
 
   translate = (e) => {
     e.preventDefault()
-    let translated = this.state.phrase
+    
+    const pigLatinTranslator = (word) => {
+    return 'test'
+  }
+    
+    let translated = pigLatinTranslator(this.state.phrase)
     this.setState({phraseTranslated: translated})
   }
+  
+
 
   handleChange = (e) => {
     this.setState({phrase: e.target.value})
