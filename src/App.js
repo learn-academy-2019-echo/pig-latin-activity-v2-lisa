@@ -28,9 +28,17 @@ class App extends React.Component {
         for (let i = 0; i < word.length; i++) {
           let letter = word[i]
           if (vowelsArray.includes(letter)) {
+            //if the first vowel is a u is preceeded by a q == then move the consonants + -qu to the end and add -ay
             if (letter === 'u' && word[word.indexOf(letter)-1] === 'q')  {
-              pigLatin += word.slice(word.indexOf(letter)+1) + word.slice(0, word.indexOf(letter)+1) + 'ay' 
+              pigLatin = word.slice(word.indexOf(letter)+1) + word.slice(0, word.indexOf(letter)+1) + 'ay'
+              return pigLatin
             }
+            else {
+                  //move the letters before the vowel to the end
+            }
+          }
+          else {
+                //if y is the only vowel, treat as a vowel. Otherwise treat as a consonant
           }
         }
       }
@@ -43,12 +51,9 @@ class App extends React.Component {
       return pigLatin
       }
 
-      ////if the first vowel is a u is preceeded by a q == then move the consonants + -qu to the end and add -ay
-        
+
     
-    //if y is the only vowel, treat as a vowel. Otherwise treat as a consonant
-    
-    //move the letters before the vowel to the end
+
     let translated = pigLatinTranslator(this.state.phrase)
     this.setState({phraseTranslated: translated})
     
