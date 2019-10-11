@@ -11,11 +11,54 @@ class App extends React.Component {
   }
   
   // The translate function is where you will put your logic to convert the sentence entered by the user to pig location.  What is currently in the function will only directly copy what the user has entered.
+  
+
 
   translate = (e) => {
     e.preventDefault()
-    let translated = this.state.phrase
+
+    
+    const pigLatinTranslator = (word) => {
+      let vowelsArray = ['a', 'e', 'i', 'o', 'u']
+      let pigLatin = '';
+      
+      //if first letter is a vowel, - add -way to the end
+      if (vowelsArray.includes(word[0])) {
+            pigLatin = word + 'way';
+            return pigLatin;
+      }
+      //otherwise find the first vowel
+      else {
+        for (let i = 1; i < word.length; i++) {
+          if (vowelsArray.includes(word[i])) {
+            let vowel = word[i];
+            //if the first vowel is a u is preceeded by a q == then move the consonants + -qu to the end and add -ay
+            if (vowel === 'u' && word[word.indexOf(vowel)-1] === 'q')  {
+              pigLatin = word.slice(word.indexOf(vowel) +1) + word.slice(0, word.indexOf(vowel)+1) + 'ay'
+              return pigLatin;
+            }
+            else { 
+              //take off the consonants before the first vowel and add to the end.
+              pigLatin = word.slice(word.indexOf(vowel)) + word.slice(0, word.indexOf(vowel)) + 'ay'
+              return pigLatin
+            }
+          } else { //if the only vowel in the sentence is a 'y', treat as a consonant
+            if (word.includes('y')) {
+              pigLatin = word.slice(word.indexOf('y')) + word.slice(0, word.indexOf('y')) + 'ay'
+              return pigLatin
+            }
+          }
+        }
+      }
+    }
+
+
+    
+
+    let translated = pigLatinTranslator(this.state.phrase)
     this.setState({phraseTranslated: translated})
+    
+
   }
 
   handleChange = (e) => {
@@ -47,7 +90,7 @@ class App extends React.Component {
         </main>
         <footer className="box footer">
           <div className="text-center">
-            <p>Coded by * * *</p>
+            <p>Coded by Lisa</p>
           </div>
         </footer>
       </div>
