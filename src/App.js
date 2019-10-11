@@ -16,6 +16,8 @@ class App extends React.Component {
 
   translate = (e) => {
     e.preventDefault()
+    let translated = this.state.phrase.split(' ').map(this.pigLatinTranslator).join(' ')
+    this.setState({phraseTranslated: translated})
 
     
     const pigLatinTranslator = (word) => {
@@ -55,8 +57,7 @@ class App extends React.Component {
 
     
 
-    let translated = pigLatinTranslator(this.state.phrase)
-    this.setState({phraseTranslated: translated})
+
     
 
   }
