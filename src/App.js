@@ -16,7 +16,6 @@ class App extends React.Component {
 
   translate = (e) => {
     e.preventDefault()
-
     
     const pigLatinTranslator = (word) => {
       let vowelsArray = ['a', 'e', 'i', 'o', 'u']
@@ -52,14 +51,13 @@ class App extends React.Component {
       }
     }
 
-
-    
-
     let translated = pigLatinTranslator(this.state.phrase)
     this.setState({phraseTranslated: translated})
     
 
   }
+  
+
 
   handleChange = (e) => {
     this.setState({phrase: e.target.value})
