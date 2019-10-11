@@ -14,9 +14,53 @@ class App extends React.Component {
 
   translate = (e) => {
     e.preventDefault()
-    let translated = this.state.phrase
+    
+    const pigLatinTranslator = (word) => {
+      let vowelsArray = ['a', 'e', 'i', 'o', 'u']
+      let pigLatin = '';
+      
+      //if first letter is a vowel, - add -way to the end
+      if (vowelsArray.includes(word[0])) {
+            pigLatin = word + 'way';
+      }
+      //otherwise find the first vowel
+      else {
+        for (let i = 0; i < word.length; i++) {
+          let letter = word[i]
+          if (vowelsArray.includes(letter)) {
+            //if the first vowel is a u is preceeded by a q == then move the consonants + -qu to the end and add -ay
+            if (letter === 'u' && word[word.indexOf(letter)-1] === 'q')  {
+              pigLatin = word.slice(word.indexOf(letter)+1) + word.slice(0, word.indexOf(letter)+1) + 'ay'
+              return pigLatin
+            }
+            else {
+                  //move the letters before the vowel to the end
+            }
+          }
+          else {
+                //if y is the only vowel, treat as a vowel. Otherwise treat as a consonant
+          }
+        }
+      }
+      
+      
+      
+      
+      
+      
+      return pigLatin
+      }
+
+
+    
+
+    let translated = pigLatinTranslator(this.state.phrase)
     this.setState({phraseTranslated: translated})
+    
+
   }
+  
+
 
   handleChange = (e) => {
     this.setState({phrase: e.target.value})
@@ -47,7 +91,7 @@ class App extends React.Component {
         </main>
         <footer className="box footer">
           <div className="text-center">
-            <p>Coded by * * *</p>
+            <p>Coded by Lisa</p>
           </div>
         </footer>
       </div>
