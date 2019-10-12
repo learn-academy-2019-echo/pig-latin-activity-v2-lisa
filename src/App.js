@@ -66,9 +66,10 @@ class App extends React.Component {
       return pigLatinTranslator(word)
     })
     
-    const changeToUppercase = pigLatinWords.map((word) => {
-      if (capitalizeState[0]) {
-        return word[0].toUpperCase() + word.slice(1).toLowerCase()
+    //works to change to uppercase except in cases where there is a word starting with a vowel as the first letter in the word, and the word is <= 2 characters
+    const changeToUppercase = pigLatinWords.map((word, index) => {
+      if (capitalizeState[index]) {
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
       }
       else {
         return word;
