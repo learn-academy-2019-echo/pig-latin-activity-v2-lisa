@@ -12,21 +12,14 @@ class App extends React.Component {
   
   // The translate function is where you will put your logic to convert the sentence entered by the user to pig location.  What is currently in the function will only directly copy what the user has entered.
   
-
-
   translate = (e) => {
     e.preventDefault()
 
-    let translated = this.state.phrase.split(' ').map(this.pigLatinTranslator).join(' ')
-    this.setState({phraseTranslated: translated})
 
-
-
-    
     const pigLatinTranslator = (word) => {
       let vowelsArray = ['a', 'e', 'i', 'o', 'u']
       let pigLatin = '';
-      
+
       //if first letter is a vowel, - add -way to the end
       if (vowelsArray.includes(word[0])) {
             pigLatin = word + 'way';
@@ -47,30 +40,37 @@ class App extends React.Component {
               pigLatin = word.slice(word.indexOf(vowel)) + word.slice(0, word.indexOf(vowel)) + 'ay'
               return pigLatin
             }
-          } else { //if the only vowel in the sentence is a 'y', treat as a consonant
-            if (word.includes('y')) {
-              pigLatin = word.slice(word.indexOf('y')) + word.slice(0, word.indexOf('y')) + 'ay'
-              return pigLatin
-            }
-          }
+          } 
         }
       }
+        //if the only vowel in the sentence is a 'y', treat as a consonant
+        if (word.includes('y')) {
+            pigLatin = word.slice(word.indexOf('y')) + word.slice(0, word.indexOf('y')) + 'ay'
+            return pigLatin
+            }
+          
     }
+    const words = this.state.phrase.split(' ')
+    const pigLatinWords = words.map((word) => {
+      return pigLatinTranslator(word)
+    })
+    const pigLatinPhrase = pigLatinWords.join(' ')
+    this.setState({phraseTranslated: pigLatinPhrase})
+
+
+
+
+
+
 
 
 
     
 
-
-
-    let translated = pigLatinTranslator(this.state.phrase)
-    this.setState({phraseTranslated: translated})
 
     
 
   }
-  
-
 
   handleChange = (e) => {
     this.setState({phrase: e.target.value})
