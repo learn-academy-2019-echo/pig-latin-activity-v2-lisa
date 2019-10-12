@@ -51,10 +51,32 @@ class App extends React.Component {
           
     }
     const words = this.state.phrase.split(' ')
+    
+    //return an array of whether the first letter in the word is capitalized
+    const capitalizeState = words.map((word, index) => {
+      if (word[0] === word[0].toUpperCase()) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    
+    //return an array of the words after they are translated into pig latin
     const pigLatinWords = words.map((word) => {
       return pigLatinTranslator(word)
     })
-    const pigLatinPhrase = pigLatinWords.join(' ')
+    
+    const changeToUppercase = pigLatinWords.map((word) => {
+      if (capitalizeState[0]) {
+        return word[0].toUpperCase() + word.slice(1).toLowerCase()
+      }
+      else {
+        return word;
+      }
+    })
+    
+    
+    const pigLatinPhrase = changeToUppercase.join(' ')
     this.setState({phraseTranslated: pigLatinPhrase})
 
 
